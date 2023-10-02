@@ -1,0 +1,171 @@
+[gd_scene load_steps=23 format=3 uid="uid://cudvcgepgf7lr"]
+
+[ext_resource type="Shader" path="res://Shaders/Basic_Mask.gdshader" id="1_x8k4e"]
+[ext_resource type="Texture2D" uid="uid://bs0cnl5yqcec6" path="res://Assets/GuideImages/TextureToMask.png" id="2_g006e"]
+[ext_resource type="Shader" path="res://Shaders/circle_mask.gdshader" id="3_83du2"]
+[ext_resource type="Shader" path="res://Shaders/sprite_mask.gdshader" id="4_h5ct6"]
+[ext_resource type="Texture2D" uid="uid://q6pd6alje5td" path="res://Assets/Godot.png" id="5_xhe5n"]
+[ext_resource type="Shader" path="res://Shaders/square_mask.gdshader" id="6_oepog"]
+[ext_resource type="Texture2D" uid="uid://bjodphilin58e" path="res://Assets/tile_reveal.png" id="7_5s4s2"]
+[ext_resource type="Shader" path="res://Shaders/screen_mask.gdshader" id="8_qn28t"]
+[ext_resource type="Shader" path="res://Shaders/transition_mask.gdshader" id="9_gh76e"]
+[ext_resource type="Texture2D" uid="uid://dpkod6b5bcbvk" path="res://Assets/GuideMaskImages/Godot.png" id="10_cuuoe"]
+[ext_resource type="Texture2D" uid="uid://o48u5wvc7rq8" path="res://Assets/GuideImages/Godot.png" id="11_bubr3"]
+[ext_resource type="Texture2D" uid="uid://cvvreg3hmpmpn" path="res://Assets/GuideMaskImages/vines.png" id="12_os45f"]
+[ext_resource type="Texture2D" uid="uid://dw3f7blfqwyp2" path="res://Assets/GuideImages/vines.png" id="13_h57xo"]
+[ext_resource type="Shader" path="res://Shaders/tansition_2_sided.gdshader" id="14_2idiu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iekrh"]
+shader = ExtResource("1_x8k4e")
+shader_parameter/the_size = 0.5
+shader_parameter/wipe_direction = 1.0
+shader_parameter/wipe_axis_y = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vasv5"]
+shader = ExtResource("3_83du2")
+shader_parameter/circle_size = 0.4
+shader_parameter/size_ratio = 1.0
+shader_parameter/location_x = 0.5
+shader_parameter/location_y = 0.5
+shader_parameter/invert_mask = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gd6v8"]
+shader = ExtResource("4_h5ct6")
+shader_parameter/rect_size = 0.789
+shader_parameter/ratio_width = 0.662
+shader_parameter/ratio_height = 1.0
+shader_parameter/location_x = 0.195
+shader_parameter/location_y = 0.148
+shader_parameter/invert_mask = false
+shader_parameter/mask_texture = ExtResource("5_xhe5n")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fai70"]
+shader = ExtResource("6_oepog")
+shader_parameter/rect_size = 0.363
+shader_parameter/location_x = 0.0850001
+shader_parameter/location_y = 0.0
+shader_parameter/ratio_width = 1.0
+shader_parameter/ratio_height = 1.0
+shader_parameter/invert_mask = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_08s1e"]
+shader = ExtResource("8_qn28t")
+shader_parameter/invert_mask = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n44ai"]
+shader = ExtResource("9_gh76e")
+shader_parameter/cutoff = 0.642
+shader_parameter/smooth_size = 0.0
+shader_parameter/travel_direction = -1.0
+shader_parameter/masking_color = Color(1, 1, 1, 1)
+shader_parameter/mask = ExtResource("10_cuuoe")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rtmgg"]
+shader = ExtResource("9_gh76e")
+shader_parameter/cutoff = 0.33
+shader_parameter/smooth_size = 0.0
+shader_parameter/travel_direction = -1.0
+shader_parameter/masking_color = Color(1, 1, 1, 1)
+shader_parameter/mask = ExtResource("12_os45f")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lsnuq"]
+shader = ExtResource("14_2idiu")
+shader_parameter/cutoff_one = 0.618
+shader_parameter/cutoff_two = 0.0
+shader_parameter/smooth_size = 0.0
+shader_parameter/invert_mask = false
+shader_parameter/masking_color = Color(1, 1, 1, 1)
+shader_parameter/mask = ExtResource("10_cuuoe")
+
+[node name="Mask Types" type="Node2D"]
+
+[node name="Basic Wipe Mask" type="Sprite2D" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_iekrh")
+position = Vector2(203, 141)
+texture = ExtResource("2_g006e")
+
+[node name="Circle Mask" type="Sprite2D" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_vasv5")
+position = Vector2(203, 141)
+texture = ExtResource("2_g006e")
+
+[node name="Sprite Mask" type="Sprite2D" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_gd6v8")
+position = Vector2(203, 141)
+texture = ExtResource("2_g006e")
+
+[node name="Square Mask" type="Sprite2D" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_fai70")
+position = Vector2(203, 141)
+texture = ExtResource("2_g006e")
+
+[node name="Screen Mask" type="Node2D" parent="."]
+visible = false
+
+[node name="BlueBackground" type="Sprite2D" parent="Screen Mask"]
+position = Vector2(171, 109)
+texture = ExtResource("2_g006e")
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="Screen Mask"]
+
+[node name="TileReveal" type="Sprite2D" parent="Screen Mask/BackBufferCopy"]
+position = Vector2(227.357, 190.524)
+scale = Vector2(0.39163, 0.559654)
+texture = ExtResource("7_5s4s2")
+
+[node name="Screen Mask" type="Sprite2D" parent="Screen Mask/BackBufferCopy"]
+material = SubResource("ShaderMaterial_08s1e")
+position = Vector2(184, 171)
+texture = ExtResource("5_xhe5n")
+
+[node name="Transition 1-Direction Mask" type="Node2D" parent="."]
+visible = false
+
+[node name="Godot" type="Sprite2D" parent="Transition 1-Direction Mask"]
+material = SubResource("ShaderMaterial_n44ai")
+position = Vector2(165, 155)
+texture = ExtResource("11_bubr3")
+
+[node name="Vines" type="Sprite2D" parent="Transition 1-Direction Mask"]
+material = SubResource("ShaderMaterial_rtmgg")
+position = Vector2(784, 631)
+texture = ExtResource("13_h57xo")
+
+[node name="Transition 2-Direction Mask" type="Node2D" parent="."]
+visible = false
+
+[node name="Godot" type="Sprite2D" parent="Transition 2-Direction Mask"]
+material = SubResource("ShaderMaterial_lsnuq")
+position = Vector2(165, 155)
+texture = ExtResource("11_bubr3")
+
+[node name="Vines" type="Sprite2D" parent="Transition 2-Direction Mask"]
+material = SubResource("ShaderMaterial_rtmgg")
+position = Vector2(784, 631)
+texture = ExtResource("13_h57xo")
+
+[node name="Clip Children" type="Sprite2D" parent="."]
+visible = false
+clip_children = 1
+position = Vector2(189, 161)
+texture = ExtResource("5_xhe5n")
+
+[node name="TextureToMask" type="Sprite2D" parent="Clip Children"]
+position = Vector2(6, -37)
+texture = ExtResource("2_g006e")
+
+[node name="Control" type="Control" parent="."]
+visible = false
+clip_contents = true
+layout_mode = 3
+anchors_preset = 0
+offset_right = 214.0
+offset_bottom = 155.0
+
+[node name="TextureToMask" type="Sprite2D" parent="Control"]
+position = Vector2(176, 119)
+texture = ExtResource("2_g006e")
